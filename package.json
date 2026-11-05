@@ -1,0 +1,1 @@
+{"name":"dividend-line-helper","version":"1.0.0","private":true,"description":"LINE 每月保單配息回報工具","scripts":{"test":"node --test tests/*.test.mjs"}}

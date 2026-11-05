@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#126d55">
+<meta name="description" content="每月配息回報小幫手：輸入保單數字、編輯共用文案，一鍵複製 LINE 訊息。">
+<title>領錢錢｜每月配息回報</title><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css"><script type="module" src="./app.js"></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./" aria-label="領錢錢首頁"><span class="brand-icon">＄</span><span>領錢錢<span class="brand-sub">每月配息回報</span></span></a><span class="team-tag">給每一份安心，準時的回報。</span><button class="icon-button" id="help" aria-label="使用說明"><span aria-hidden="true">?</span></button></header>
+<main class="workspace">
+<section class="page-heading"><div><div class="eyebrow">YOUR MONTHLY CHECK-IN</div><h1>好消息，一鍵送上。</h1><p>填好數字，套用文案。每月回報可以很簡單。</p></div><div class="month-mark"><span class="status-dot"></span>每一份回報，都有溫度</div></section>
+<div class="layout">
+<section class="editor" aria-label="回報編輯區">
+<div class="tabs" role="tablist" aria-label="編輯項目"><button id="policies-tab" role="tab" aria-selected="true" aria-controls="policies-panel" class="tab active">01 <span>保單資料</span><span id="policy-count" class="count">1</span></button><button id="copy-tab" role="tab" aria-selected="false" aria-controls="copy-panel" tabindex="-1" class="tab">02 <span>每月共用文案</span></button></div>
+<div id="policies-panel" role="tabpanel" aria-labelledby="policies-tab">
+<div class="section-heading"><div><h2>這位客戶的保單</h2><p>一張、兩張，或更多張，都能一起回報。</p></div><button class="text-button" id="next-customer">下一位客戶 <span aria-hidden="true">→</span></button></div>
+<div id="policies"></div>
+<button class="add-policy" id="add-policy"><span class="plus" aria-hidden="true">＋</span> 新增一張保單</button>
+<p class="quiet-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> 保單名稱與數字僅暫存於此頁，重新整理後清空。</p>
+</div>
+<div id="copy-panel" role="tabpanel" aria-labelledby="copy-tab" hidden>
+<div class="section-heading"><div><h2>這個月，只要寫一次</h2><p>所有客戶共用，也能隨時調整成你的語氣。</p></div></div>
+<div class="copy-card"><label for="greeting">開場標題</label><input id="greeting" type="text" maxlength="200" autocomplete="off"><div class="label-row"><label for="paymentDate">預計配息入帳日</label><span>自動加「前」，可留空</span></div><input id="paymentDate" type="text" maxlength="100" autocomplete="off" placeholder="例如：11月15日"><div class="label-row"><label for="market">本月市場概況</label><span>每月更新</span></div><textarea id="market" rows="9" placeholder="貼上你準備好的本月市場概況…"></textarea><div class="label-row"><label for="promotion">自我推薦／工商時間</label><span>留空即不顯示</span></div><textarea id="promotion" rows="6"></textarea><div class="label-row"><label for="recruitment">人才招募</label><span>留空即不顯示</span></div><textarea id="recruitment" rows="7"></textarea></div>
+<p class="quiet-note" id="save-status" role="status">共用文案自動保存在這個瀏覽器，不與其他夥伴同步。</p>
+</div>
+</section>
+<aside class="preview-column" aria-label="訊息預覽"><div class="preview-title"><h2>LINE 訊息預覽</h2><span><i class="status-dot"></i>即時更新</span></div><div class="phone-preview"><div class="chat-top"><span aria-hidden="true">‹</span><strong>每月配息回報</strong><span class="chat-menu" aria-hidden="true">☰</span></div><div class="chat-body"><div class="chat-day">準備好，就傳給客戶</div><div class="message-wrap"><div class="message" id="preview" tabindex="0"></div><span class="message-time" aria-hidden="true">送出前<br>預覽</span></div></div></div><div class="preview-footer"><div class="length-note"><span id="char-count">0 字</span><span>純文字・保留換行格式</span></div><button id="copy-message" class="primary-button"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3"/></svg><span>複製完整訊息</span></button><p class="copy-hint">複製後，貼到 LINE 就完成了。</p></div></aside>
+</div>
+<footer class="page-footer"><span>領錢錢</span><span>把時間留給服務，把重複交給工具。</span></footer>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+<dialog id="confirm-dialog"><form method="dialog"><span class="dialog-symbol" aria-hidden="true">↗</span><h2 id="confirm-title"></h2><p id="confirm-description"></p><div class="dialog-actions"><button value="cancel" class="secondary-button">保留資料</button><button value="confirm" class="primary-button">確認清空</button></div></form></dialog>
+<dialog id="help-dialog"><form method="dialog"><h2>三步驟，完成每月回報</h2><ol><li>在「每月共用文案」填寫預計配息入帳日、貼上市場概況，修改自薦與招募文字。</li><li>輸入客戶保單數字；多張保單按「＋」，可分別切換回報格式。</li><li>按「複製完整訊息」貼到 LINE，再按「下一位客戶」。</li></ol><p>投入資金與目前價值以「萬」輸入與回報，例如輸入 100 顯示 100萬；本月領息與累積領息以「元」輸入與回報。數字自動加上千分位，小數位完整保留。保單名稱可留白，多張未命名保單會以「保單 1」等編號區分。</p><p>共用文案只儲存在目前裝置的瀏覽器；保單資料不會儲存或上傳。這是文案整理工具，市場內容由你自行輸入與確認。</p><button class="primary-button" value="close">開始回報</button></form></dialog>
+<dialog id="manual-dialog"><form method="dialog"><h2>請手動複製訊息</h2><p>此瀏覽器未開放剪貼簿，請長按或全選下方文字後複製。</p><textarea id="manual-text" rows="12" readonly aria-label="待複製訊息"></textarea><button class="primary-button" value="close">完成</button></form></dialog>
+</body></html>
